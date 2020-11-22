@@ -1,0 +1,21 @@
+version: "3.1"
+networks:
+  example-network:
+services:
+  hello-service:
+    build: ./hello-service
+    environment:
+      PORT: 3456
+    networks:
+      - example-network
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "4444:3456"
+    environment:
+      PORT: 3456
+      HELLO_SERVICE_URL: http://hello-service:3456
+    depends_on:
+      - hello-service
+    networks:
+      - example-network

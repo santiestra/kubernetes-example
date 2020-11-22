@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o kompose-files
+    kompose.version: 1.22.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      io.kompose.service: api-gateway
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o kompose-files
+        kompose.version: 1.22.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/example-network: "true"
+        io.kompose.service: api-gateway
+    spec:
+      containers:
+        - env:
+            - name: HELLO_SERVICE_URL
+              value: http://hello-service:3333
+            - name: PORT
+              value: "3456"
+          image: santiestra/kube-api-gateway
+          name: api-gateway
+          ports:
+            - containerPort: 3456
+          resources: {}
+      restartPolicy: Always
+status: {}
