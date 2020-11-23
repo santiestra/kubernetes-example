@@ -68,7 +68,7 @@ Con el comando `kubectl get service api-gateway` vemos los detalles del servicio
     ```
 
 17. Apliquemos esos archivos con `kubectl apply -f kompose-files`
-18. No nos genero un service para hello-service... creemoslo nosotros. Este no queremos que se exponga al exterior, pero si al cluster.
+18. No nos genero un service para hello-service ya que no exponia ningun puerto en docker-compose.yml... creemoslo nosotros. Este no queremos que se exponga al exterior, pero si al cluster.
 
     ```jsx
     apiVersion: v1
